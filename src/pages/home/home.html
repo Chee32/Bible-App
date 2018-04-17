@@ -1,14 +1,81 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding class="main-element">
+  <form (ngSubmit)="RandomBible()">
+  	<ion-card class="ot-card">
+	  <ion-card-header>
+	  	<ion-item>
+	  		<ion-checkbox item-start [(ngModel)]="form.OT.value" name="{{form.OT.abbr}}" checked="true" (click)="CheckChange(form.OT.abbr, form.OT.value)" class="testimate-check"></ion-checkbox>
+			<ion-item item-content class="testimate" text-wrap [innerHTML]="form.OT.name"></ion-item>
+			<button ion-button large icon-only item-end (click)="ShowSections('ot')" type="button" class="testimate-bttn">
+				<ion-icon name="arrow-dropup" *ngIf="form.OT.showsub"></ion-icon>
+				<ion-icon name="arrow-dropdown" *ngIf="!form.OT.showsub"></ion-icon>
+			</button>
+		</ion-item>
+	  </ion-card-header>
+	  <ion-list>
+	  	<ion-card *ngIf="form.OT.showsub" class="section-card">
+	  		<div *ngFor="let section of form.OT.sections">
+	  			<ion-item>
+	  				<ion-item item-content>
+					  	<ion-label>{{section.name}}</ion-label>
+					  	<ion-checkbox [(ngModel)]="section.value" name="{{section.abbr}}" (click)="CheckChange(section.abbr, section.value)"></ion-checkbox>
+					</ion-item>
+					<button ion-button large icon-only item-end (click)="ShowSections(section.abbr)" type="button" *ngIf="form.OT.showsub">
+				  		<ion-icon name="arrow-dropup" *ngIf="section.showsub"></ion-icon>
+						<ion-icon name="arrow-dropdown" *ngIf="!section.showsub"></ion-icon>
+				  	</button>
+				</ion-item>
+				<ion-card *ngIf="section.showsub" class="book-card">
+					<div *ngFor="let book of section.books">
+						<ion-list>
+					  		<ion-item>
+						  		<ion-label>{{book.name}}</ion-label>
+							  	<ion-checkbox [(ngModel)]="book.value" name="{{book.abbr}}" (click)="CheckChange(book.abbr, book.value)" *ngIf="section.showsub"></ion-checkbox>
+						  	</ion-item>
+						</ion-list>
+					</div>
+				</ion-card>
+			</div>
+		</ion-card>
+	  </ion-list>
+    </ion-card>
+    <ion-card class="nt-card">
+	  <ion-card-header>
+	  	<ion-item>
+		  	<ion-checkbox item-start [(ngModel)]="form.NT.value" name="{{form.NT.abbr}}" checked="true" (click)="CheckChange(form.NT.abbr, form.NT.value)" class="testimate-check"></ion-checkbox>
+			<ion-item item-content class="testimate" text-wrap [innerHTML]="form.NT.name"></ion-item>
+			<button ion-button large icon-only item-end (click)="ShowSections('nt')" type="button" class="testimate-bttn">
+				<ion-icon name="arrow-dropup" *ngIf="form.NT.showsub"></ion-icon>
+				<ion-icon name="arrow-dropdown" *ngIf="!form.NT.showsub"></ion-icon>
+			</button>
+		</ion-item>
+	  </ion-card-header>
+	  <ion-list>
+	  	<ion-card *ngIf="form.NT.showsub" class="section-card">
+	  		<div *ngFor="let section of form.NT.sections">
+	  			<ion-item>
+	  				<ion-item item-content>
+					  	<ion-label>{{section.name}}</ion-label>
+					  	<ion-checkbox [(ngModel)]="section.value" name="{{section.abbr}}" (click)="CheckChange(section.abbr, section.value)"></ion-checkbox>
+					</ion-item>
+					<button ion-button large icon-only item-end (click)="ShowSections(section.abbr)" type="button" *ngIf="form.NT.showsub">
+				  		<ion-icon name="arrow-dropup" *ngIf="section.showsub"></ion-icon>
+						<ion-icon name="arrow-dropdown" *ngIf="!section.showsub"></ion-icon>
+				  	</button>
+				</ion-item>
+				<ion-card *ngIf="section.showsub" class="book-card">
+					<div *ngFor="let book of section.books">
+						<ion-list>
+					  		<ion-item>
+						  		<ion-label>{{book.name}}</ion-label>
+							  	<ion-checkbox [(ngModel)]="book.value" name="{{book.abbr}}" (click)="CheckChange(book.abbr, book.value)" *ngIf="section.showsub"></ion-checkbox>
+						  	</ion-item>
+						</ion-list>
+					</div>
+				</ion-card>
+			</div>
+		</ion-card>
+	  </ion-list>
+    </ion-card>
+      <button ion-button type="submit" block>Get Random Chapter</button>
+    </form>
 </ion-content>
